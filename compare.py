@@ -41,13 +41,14 @@ def readFile(file, people):
     with codecs.open(file, mode='rb', encoding='utf-8') as csvfile:
         relativereader = unicode_csv_reader(csvfile, delimiter=',')
         for row in relativereader:
-            name = row[0]
-            percent = row[6]
-            if name:
-                if "%" in percent:
-                    percentre = re.search('(\d*\.\d*)%', percent)
-                    percentvalue = percentre.group(1)
-                    people[name] = percentvalue
+            if len(row) > 6:
+                name = row[0]
+                percent = row[6]
+                if name:
+                    if "%" in percent:
+                        percentre = re.search('(\d*\.\d*)%', percent)
+                        percentvalue = percentre.group(1)
+                        people[name] = percentvalue
 readFile(file1, file1People)
 readFile(file2, file2People)
 
